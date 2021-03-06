@@ -63,3 +63,5 @@ class SummaryConsensus(Consensus):
         super().__init__(dataframe)
         self.evaluate_consensus(OscillatorConsensus(dataframe), "osc", average=False)
         self.evaluate_consensus(MovingAverageConsensus(dataframe), "moving_average_consensus", average=False)
+        
+        return self.score()

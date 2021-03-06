@@ -564,8 +564,6 @@ class Consensus:
                 'sell_{}'.format(name)
             ] = (consensus.sell_weights * impact_sell)
 
-        return dataframe
-
     def evaluate_cmo(self, period=20, prefix="cmo", impact_buy=1, impact_sell=1):
         """
         evaluates the osc
