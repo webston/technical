@@ -9,7 +9,7 @@ modified@: Harry Chakryan
 """
 
 
-def pivot_points_camarilla(dataframe: pd.DataFrame, timeperiod=30) -> pd.DataFrame:
+def pivot_points(dataframe: pd.DataFrame, timeperiod=30) -> pd.DataFrame:
     """
     Pivot Points Camarilla
 
@@ -68,21 +68,26 @@ def pivot_points_camarilla(dataframe: pd.DataFrame, timeperiod=30) -> pd.DataFra
         window=timeperiod
     )
 
+    price_range = high - low
+    resistence = lambda x: close + 1.1 * (price_range)/x
+    support = lambda x: close - 1.1 * (price_range)/x
+
+
     # Support and Resistance #1
-    data['r1'] = close + 1.1 * (high - low)/12
-    data['s1'] = close - 1.1 * (high - low)/12
+    data['r1'] = resistence(12)
+    data['s1'] = support(12)
     
     # Support and Resistance #2
-    data['r2'] = close + 1.1 * (high - low)/6
-    data['s2'] = close - 1.1 * (high - low)/6
+    data['r2'] = resistence(6)
+    data['s2'] = support(6)
     
     # Support and Resistance #3
-    data['r3'] = close + 1.1 * (high - low)/4
-    data['s3'] = close - 1.1 * (high - low)/4
+    data['r3'] = resistence(4)
+    data['s3'] = support(4)
     
     # Support and Resistance #4
-    data['r4'] = close + 1.1 * (high - low)/2
-    data['s4'] = close - 1.1 * (high - low)/2
+    data['r4'] = resistence(2)
+    data['s4'] = support(2)
 
     return pd.DataFrame(
         index=dataframe.index,
